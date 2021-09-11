@@ -1,0 +1,15 @@
+// netlify.toml
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[context.production.environment]
+  TOML_ENV_VAR = "From netlify.toml"
+  REACT_APP_API_KEY = "AIzaSyBOn6xygPPUTUIPARrzdbDJQOxbgetnuTQ"
+  REACT_APP_AUTH_DOMAIN = "travel-here-36a2e.firebaseapp.com"
+  REACT_APP_PROJECT_ID = "travel-here-36a2e"
+  REACT_APP_STOREAGE_BUCKET = "travel-here-36a2e.appspot.com"
+  REACT_APP_MESSAGING_SENDER_ID = "346694494088"
+  REACT_APP_API_ID = "1:346694494088:web:b7ea9a7ddab833dc0f3c3d"
+  REACT_APP_MEARUEMENT_ID = "G-0GD4RTL0QZ"
+  REACT_APP_DB_URL= "https://travel-here-36a2e-default-rtdb.firebaseio.com"
