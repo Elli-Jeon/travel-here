@@ -45,7 +45,7 @@
       "react-app/jest"
     ]
   },
-  "homepage" : "https://travel-here.netlify.app",
+  "homepage" : "https://travel-here.netlify.app/",
   "browserslist": {
     "production": [
       ">0.2%",
