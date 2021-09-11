@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import * as S from './Post.style';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import * as S from "./Post.style";
 import { throttle } from "lodash";
-import Comment from 'components/Comment/Comment';
-import PostSlider from './PostSlider/PostSlider';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import { likeMiddleware } from 'store/modules/postLike';
-import { userMiddleware } from 'store/modules/userLike';
-import { bookmarkMiddleware } from 'store/modules/bookmark';
-import { mypagePostMiddleware } from 'store/modules/mypagePost';
+import Comment from "components/Comment/Comment";
+import PostSlider from "./PostSlider/PostSlider";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import { likeMiddleware } from "store/modules/postLike";
+import { userMiddleware } from "store/modules/userLike";
+import { bookmarkMiddleware } from "store/modules/bookmark";
+import { mypagePostMiddleware } from "store/modules/mypagePost";
 
 import {
   commentDelThunk,
@@ -121,7 +121,7 @@ const Post = ({
   // users collection : user_write_posts, user_write_comments, user_like_posts, user_bookmark_posts
   // comment collection : comment 문서 자체
   const postDelete = async () => {
-    if(!window.confirm("정말 삭제하시겠습니까?")){
+    if (!window.confirm("정말 삭제하시겠습니까?")) {
       onEditDelete();
       return;
     }
@@ -152,39 +152,38 @@ const Post = ({
   };
 
   const onContainerClick = (e) => {
-    if(e.target !== e.currentTarget){
+    if (e.target !== e.currentTarget) {
       return;
     }
     onHideModal();
-  }
+  };
 
   // 모달창 닫기
   const onHideModal = () => {
     setViewRender(!viewRender);
     setIsPostOpened(false);
     history.push({
-      search: "",
+      pathname: `${location.pathname}`,
     });
     window.location.reload();
   };
 
   const handleSize = useCallback(() => {
     setWidthSize(window.innerWidth);
-    if(textarea.current){
+    if (textarea.current) {
       textarea.current.style.height = `${textarea.current.scrollHeight}px`;
     }
   }, []);
 
-
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUser(user);
-      dispatch(userMiddleware(user.uid, '', 'init'));
+      dispatch(userMiddleware(user.uid, "", "init"));
       dispatch(mypagePostMiddleware(user.uid));
     });
     dispatch(likeMiddleware(post_id, "init"));
     setTime(timeCalculate(post_date));
-    if(textarea.current){
+    if (textarea.current) {
       textarea.current.style.height = `${textarea.current.scrollHeight}px`;
     }
   }, []);
@@ -206,14 +205,20 @@ const Post = ({
   }, []);
 
   return (
-    <S.Container onClick={e=>onContainerClick(e)}>
+    <S.Container onClick={(e) => onContainerClick(e)}>
       <S.Contents>
         <ul ref={comment}>
           <S.Header>
             <span>
               <span>{post_title}</span>
               <p>#{post_region}</p>
-              {update ? <p>조회수 1</p> : (check ? <p>조회수 {location.state.postData.post_view}</p> : <p>조회수 {postData.post_view+1}</p>)}
+              {update ? (
+                <p>조회수 1</p>
+              ) : check ? (
+                <p>조회수 {location.state.postData.post_view}</p>
+              ) : (
+                <p>조회수 {postData.post_view + 1}</p>
+              )}
             </span>
             <div>
               {userCheck && (
@@ -240,7 +245,11 @@ const Post = ({
             <span>{time}</span>
           </S.Profile>
           <S.Title>{post_title}</S.Title>
-          <S.Content><textarea disabled height="auto" ref={textarea}>{post_content}</textarea></S.Content>
+          <S.Content>
+            <textarea disabled height="auto" ref={textarea}>
+              {post_content}
+            </textarea>
+          </S.Content>
           <S.Like>
             <span>
               {likePost ? (
@@ -248,7 +257,13 @@ const Post = ({
               ) : (
                 <i onClick={onLikeToggle} className="far fa-heart"></i>
               )}
-              {update ? <span>0</span> : (check ? <span>{location.state.postData.post_like}</span> : <span>{likeNum}</span>)}
+              {update ? (
+                <span>0</span>
+              ) : check ? (
+                <span>{location.state.postData.post_like}</span>
+              ) : (
+                <span>{likeNum}</span>
+              )}
               {/* {update ? <span>0</span> : <span>{likeNum}</span>} */}
               <p>명</p>이 좋아합니다
             </span>
@@ -257,7 +272,9 @@ const Post = ({
                 onClick={onBookmarkToggle}
                 title="찜 해제"
                 className="fas fa-bookmark"
-              ><div>찜 목록에 추가됨</div></S.Bookmark>
+              >
+                <div>찜 목록에 추가됨</div>
+              </S.Bookmark>
             ) : (
               <i
                 onClick={onBookmarkToggle}
@@ -266,7 +283,13 @@ const Post = ({
               ></i>
             )}
           </S.Like>
-          <Comment postId={post_id} postregion={post_region} userDB={userDB} postLike={post_like} postView={post_view}/>
+          <Comment
+            postId={post_id}
+            postregion={post_region}
+            userDB={userDB}
+            postLike={post_like}
+            postView={post_view}
+          />
         </ul>
       </S.Contents>
       <WriteModal visible={visible} isVisible={postEdit} postData={postData} />
