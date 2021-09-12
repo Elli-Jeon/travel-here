@@ -1,2 +1,2 @@
+https://travel-here.netlify.app/* https://travel-here.netlify.app/:splat 301!
 * /index.html 200
-http://travel-here.netlify.com/* https://travel-here.netlify.com/:splat 301!
