@@ -1,2 +1,2 @@
-https://travel-here.netlify.app/categorylist/* https://travel-here.netlify.app/categorylist/:region 301
+https://travel-here.netlify.app/categorylist/* https://travel-here.netlify.app/categorylist/ 301
 * /index.html 200
